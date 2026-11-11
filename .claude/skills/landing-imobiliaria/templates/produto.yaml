@@ -1,0 +1,122 @@
+# Briefing do empreendimento — fonte única de verdade do site.
+# Preencha na entrevista (references/questionario.md). Sem informação: "[preencher]".
+# Números em formato de máquina (20000, 467000); o site formata em pt-BR.
+
+materiais:                      # o que o usuário entregou (caminhos ou links)
+  book: "[preencher]"
+  tabela_precos: "[preencher]"
+  planta: "[preencher]"         # imagem/PDF da implantação; KMZ se houver
+  fotos: "[preencher]"
+  videos: []
+  marca: "[preencher]"          # logo + manual
+  referencias: []               # sites que o usuário gosta
+
+empreendimento:
+  nome: "[preencher]"           # exatamente como deve aparecer
+  slug: "[preencher]"           # minúsculas-com-hifens (repositório, UTMs, arquivos)
+  tipo: "[preencher]"           # condominio_fazendas | loteamento | condominio_lotes | condominio_casas | apartamentos | salas_lojas
+  fase: "[preencher]"           # pronto | em_obras | lancamento
+  empreendedor: "[preencher]"
+  registro: "[preencher]"       # matrícula/alvará/RI, se puder aparecer
+  conceito: "[preencher]"       # frase curta do conceito
+  promessa_h1: "[preencher]"    # H1 aprovado (sem a parte manuscrita)
+  h1_script: "[preencher]"      # fecho manuscrito do H1 (ex.: "da história.")
+  lead_topo: "[preencher]"      # frase do topo: o que é + tamanho + para quê + onde
+
+publico:
+  finalidades: [Moradia, Investimento, Lazer / segunda casa]
+  perfis: []                    # quem compra e o que pesa na decisão
+  objecoes: []                  # dúvidas que travam a compra (alimentam o FAQ)
+
+localizacao:
+  regiao: "[preencher]"         # bairro/distrito/região
+  cidade: "[preencher]"
+  uf: "[preencher]"
+  endereco: "[preencher]"
+  coordenadas: { lat: 0, lng: 0 }   # portaria ou stand
+  acessos: []                   # ex.: ["MG-424"]
+  mostrar_tipo_pista: false     # true em produtos rurais (asfalto x terra)
+  distancias:                   # minutos de carro, a partir da portaria, sem trânsito
+    - { destino: "[preencher]", minutos: 0, km: 0, confirmado: false }
+  pontos:                       # pontos fixos do mapa
+    - { nome: "[preencher]", categoria: natureza, lat: 0, lng: 0, url: "" }   # natureza | mercados | gastronomia | servicos | cidade | aeroporto
+
+produto:
+  unidade_nome: "[preencher]"   # gleba | lote | casa | apartamento | sala
+  unidade_plural: "[preencher]"
+  area_min: 0                   # m²
+  area_max: 0
+  total_unidades: 0
+  tipologias: []                # casas/aptos: [{nome, area, quartos, suites, vagas, planta}]
+  diferenciais:                 # 4, do mais forte ao mais fraco (o 1º vira destaque)
+    - { titulo: "[preencher]", texto: "[preencher]", numero: "", icone: "" }
+  infraestrutura:               # status: pronto | em_obras | previsto
+    - { titulo: "[preencher]", texto: "[preencher]", status: pronto, icone: "" }
+  lazer: []
+  regras: []
+
+comercial:
+  preco_a_partir: 0
+  unidade_referencia: "[preencher]"   # ex.: "gleba D-55, 20.110 m²"
+  disponiveis: 0
+  reservadas: 0
+  percentual_vendido: 0
+  selo: "[preencher]"                 # frase de prova (ex.: "82% já vendido")
+  planos:                             # use os valores da unidade de referência
+    - { nome: "[preencher]", tipo: curto, juros: false, entrada_pct: 0, entrada_valor: 0, parcelas: 0, valor_parcela: 0, anuais: 0, valor_anual: 0, nota: "" }
+  aviso_legal: "Valores de referência, sujeitos a alteração sem aviso e à disponibilidade."
+  inventario:
+    usar: false
+    fonte: planilha                   # planilha | manual
+    planilha_id: "[preencher]"
+    aba_gid: "[preencher]"
+    colunas: {}                       # mapeamento coluna da planilha -> campo do JSON
+    planta_imagem: "[preencher]"
+    kmz: "[preencher]"
+
+contato:
+  whatsapp: "[preencher]"             # só dígitos com DDI: 5531999999999
+  whatsapp_exibicao: "[preencher]"    # (31) 99999-9999
+  email: "[preencher]"
+  visitas: { proximos_dias: 8, a_partir_de: amanha, excluir_dias: [], periodos: [manhã, tarde] }
+  mensagens:                          # textos pré-preenchidos do WhatsApp
+    padrao: "Olá, quero conhecer o {nome}."
+    tabela: "Olá, quero receber a tabela completa do {nome}."
+    duvida: "Olá, tenho uma dúvida sobre o {nome}."
+
+integracoes:
+  crm_site: "[preencher]"             # código do site em CRM › Captação › Sites conectados (sai do domínio)
+  crm_empreendimento: "[preencher]"   # nome igual ao cadastro do CRM
+  pixel_meta: "[preencher]"           # vai no cadastro do site no CRM, não no código
+  ga4: "[preencher]"                  # idem
+  google_ads_send_to: "[preencher]"   # idem (AW-123/rotulo)
+  google_tag_manager: "[preencher]"   # só se o cliente já tiver um contêiner (fica no HTML)
+  clarity: "[preencher]"
+
+marca:
+  logo: "[preencher]"                 # SVG/PNG transparente (versões clara e escura)
+  cores: { brand_dark: "", brand_dark_2: "", ivory: "", accent: "", gold: "", gold_light: "" }
+  fontes: { principal: Montserrat, manuscrita: "Nothing You Could Do" }
+  tom: { usar: [], evitar: [] }
+  manual: "[preencher]"
+
+midia:
+  foto_topo: "[preencher]"
+  video_hero: { origem: "[preencher]", versao: 1 }
+  trilha: { usar: true, arquivo: "[preencher]", licenca: "[preencher]" }
+  videos: []                          # [{titulo, youtube_id}]
+  galeria_categorias: []              # ex.: [Portaria, Acesso, Infraestrutura, Casas, Aéreas]
+
+site:
+  dominio: "[preencher]"
+  hospedagem: hostinger
+  repositorio: "[preencher]"          # conta/slug
+  secoes: [header, hero, ticker, diferenciais, conceito, infraestrutura, arredores, galeria, inventario, condicoes, contato, duvidas, rodape]
+  simulador: false
+  qualificacao: []                    # perguntas extras de qualificação
+  privacidade: { responsavel: "[preencher]", cnpj: "[preencher]", email: "[preencher]" }
+  metas: {}
+  excecoes: []                        # requisitos DEVERIA deixados de fora, com motivo
+
+faq: []                               # [{pergunta, resposta}] 6 a 8
+pendencias: []                        # preenchido no fim da entrevista

@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Teste de formulários e leads</title>
+<!-- Página mínima que segue o contrato de marcação de js/contato.js.
+     Serve de base para o HTML do site e para o teste automático (scripts/testar_leads.js).
+     Abra com um servidor local na pasta templates/: python3 -m http.server 8799 -->
+<style>
+  body{font-family:system-ui,sans-serif;max-width:720px;margin:40px auto;padding:0 16px;color:#17201d}
+  .field{display:grid;gap:4px;margin:10px 0}.field.is-invalid input{outline:2px solid #b3402f}
+  [hidden]{display:none!important}
+  #leadGate{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;place-items:center}
+  #leadGate.is-open{display:grid}#leadGate .box{background:#fff;padding:24px;max-width:420px;width:100%}
+  [data-cpanel]:not(.is-active){display:none}
+</style>
+</head>
+<body data-asteri="manual">
+<h1>Teste</h1>
+<p>
+  <a id="waPadrao" href="https://wa.me/5500000000000?text=Ol%C3%A1%2C%20quero%20conhecer%20o%20Produto%20Teste.">WhatsApp padrão</a> ·
+  <a id="waTabela" href="https://wa.me/5500000000000?text=Ol%C3%A1%2C%20quero%20receber%20a%20tabela%20completa%20do%20Produto%20Teste.">Receber tabela no WhatsApp</a>
+</p>
+
+<div role="tablist" aria-label="Como prefere seguir">
+  <button type="button" role="tab" class="is-active" aria-selected="true" data-ctab="info">Receber tabela</button>
+  <button type="button" role="tab" aria-selected="false" data-ctab="visita">Agendar visita</button>
+</div>
+
+<form data-lead="contato" data-cpanel="info" class="is-active" novalidate>
+  <p data-step-label>Etapa 1 de 2 · leva 10 segundos</p>
+  <div class="field"><label for="nome">Nome</label><input id="nome" name="nome" autocomplete="name" required></div>
+  <div class="field"><label for="telefone">WhatsApp</label><input id="telefone" name="telefone" data-mask="tel" inputmode="tel" autocomplete="tel" required pattern="\(\d{2}\) \d{4,5}-\d{4}"></div>
+  <div data-step="2" hidden>
+    <div class="field"><label for="finalidade">Finalidade (opcional)</label><select id="finalidade" name="finalidade"><option value="">Selecione</option><option>Moradia</option><option>Investimento</option><option>Lazer / segunda casa</option></select></div>
+    <div class="field"><label for="prazo">Prazo para comprar (opcional)</label><select id="prazo" name="prazo"><option value="">Selecione</option><option>Imediato</option><option>Em até 3 meses</option><option>De 3 a 6 meses</option><option>Mais de 6 meses</option><option>Ainda não sei</option></select></div>
+    <div class="field"><label for="email">E-mail (opcional)</label><input id="email" name="email" type="email" autocomplete="email"></div>
+    <button type="button" data-skip>Pular</button>
+  </div>
+  <button type="submit" data-submit><span>Continuar</span></button>
+  <p>Seus dados são usados só para o atendimento. <a href="politica-de-privacidade.html">Política de privacidade</a>.</p>
+</form>
+
+<form data-lead="visita" data-cpanel="visita" hidden novalidate>
+  <p data-step-label>Etapa 1 de 2</p>
+  <div data-vstep="1">
+    <fieldset><legend>Qual é o seu objetivo?</legend>
+      <label><input type="radio" name="finalidade" value="Moradia">Moradia</label>
+      <label><input type="radio" name="finalidade" value="Lazer / segunda casa">Lazer / segunda casa</label>
+      <label><input type="radio" name="finalidade" value="Investimento">Investimento</label></fieldset>
+    <fieldset><legend>Quando pretende comprar?</legend>
+      <label><input type="radio" name="prazo" value="Imediato">Imediato</label>
+      <label><input type="radio" name="prazo" value="Em até 3 meses">Em até 3 meses</label>
+      <label><input type="radio" name="prazo" value="Mais de 6 meses">Mais de 6 meses</label></fieldset>
+    <fieldset><legend>Quanto pretende dar de entrada?</legend>
+      <label><input type="radio" name="entrada" value="Até R$ 50 mil">Até R$ 50 mil</label>
+      <label><input type="radio" name="entrada" value="De R$ 50 a 100 mil">De R$ 50 a 100 mil</label>
+      <label><input type="radio" name="entrada" value="Acima de R$ 100 mil">Acima de R$ 100 mil</label></fieldset>
+    <p data-verr hidden>Responda as três perguntas para continuar.</p>
+    <button type="button" data-vnext>Continuar</button>
+  </div>
+  <div data-vstep="2" hidden>
+    <div data-visit-days role="radiogroup" aria-label="Dia da visita"></div>
+    <div role="radiogroup" aria-label="Período">
+      <label><input type="radio" name="periodo" value="manhã" checked>Manhã</label>
+      <label><input type="radio" name="periodo" value="tarde">Tarde</label>
+    </div>
+    <div class="field"><label for="vNome">Nome</label><input id="vNome" name="nome" autocomplete="name" required></div>
+    <div class="field"><label for="vTel">WhatsApp</label><input id="vTel" name="telefone" data-mask="tel" inputmode="tel" required pattern="\(\d{2}\) \d{4,5}-\d{4}"></div>
+    <button type="submit">Solicitar visita</button>
+    <button type="button" data-vback>‹ Voltar</button>
+  </div>
+</form>
+
+<div id="leadGate" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="gateTitle">
+  <div class="box">
+    <h3 id="gateTitle">Fale com um consultor.</h3>
+    <button type="button" data-gate-close aria-label="Fechar">×</button>
+    <form data-lead="whatsapp" novalidate>
+      <input type="hidden" name="interesse">
+      <p data-step-label>Etapa 1 de 2 · só nome e WhatsApp</p>
+      <div class="field"><label for="gNome">Nome completo</label><input id="gNome" name="nome" required autocomplete="name"></div>
+      <div class="field"><label for="gTel">WhatsApp</label><input id="gTel" name="telefone" data-mask="tel" inputmode="tel" required pattern="\(\d{2}\) \d{4,5}-\d{4}"></div>
+      <div data-step="2" hidden>
+        <div class="field"><label for="gEmail">E-mail (opcional)</label><input id="gEmail" name="email" type="email"></div>
+        <div class="field"><label for="gFin">Finalidade (opcional)</label><select id="gFin" name="finalidade"><option value="">Selecione</option><option>Moradia</option><option>Investimento</option><option>Lazer / segunda casa</option></select></div>
+        <div class="field"><label for="gEnt">Valor para entrada (opcional)</label><select id="gEnt" name="entrada"><option value="">Selecione</option><option>Até R$ 50 mil</option><option>De R$ 50 a 100 mil</option></select></div>
+        <div class="field"><label for="gPrazo">Prazo (opcional)</label><select id="gPrazo" name="prazo"><option value="">Selecione</option><option>Imediato</option></select></div>
+        <div class="field"><label for="gProf">Profissão (opcional)</label><input id="gProf" name="profissao"></div>
+        <button type="button" data-skip>Pular</button>
+      </div>
+      <button type="submit" data-submit><span>Continuar</span></button>
+    </form>
+  </div>
+</div>
+
+<script>
+/* config de TESTE (o teste intercepta a linha do CRM e o envio) */
+window.SITE = Object.freeze({
+  nome: 'Produto Teste', slug: 'produto-teste', unidade: 'lote',
+  whatsapp: '5500000000000', whatsappExibicao: '(00) 00000-0000', email: 'teste@example.com',
+  crmSite: 'teste', home: { lat: 0, lng: 0 },
+  mensagens: { padrao: 'Olá, quero conhecer o Produto Teste.', tabela: 'Olá, quero receber a tabela completa do Produto Teste.', duvida: 'Olá, tenho uma dúvida sobre o Produto Teste.' },
+  visitas: { proximosDias: 8, excluirDiasDaSemana: [] }
+});
+</script>
+<script src="https://sandybrown-gazelle-848710.hostingersite.com/crm/api/site/script.js?s=teste"></script>
+<script src="js/contato.js"></script>
+</body>
+</html>

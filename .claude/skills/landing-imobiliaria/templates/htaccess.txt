@@ -1,0 +1,48 @@
+# Copie para public_html/.htaccess e troque:
+#   DOMINIO              -> dominio.com.br
+#   DOMINIO_ESCAPADO     -> dominio\.com\.br            (pontos com barra invertida)
+#   PROVISORIO_ESCAPADO  -> nome-provisorio\.hostingersite\.com
+# Site estático: index.html como página inicial.
+DirectoryIndex index.html index.php
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+
+  # Endereço oficial: https://DOMINIO
+  # O www e o endereço provisório da Hostinger levam ao oficial (mantém caminho, UTM e gclid).
+  RewriteCond %{HTTP_HOST} ^www\.DOMINIO_ESCAPADO$ [NC,OR]
+  RewriteCond %{HTTP_HOST} ^PROVISORIO_ESCAPADO$ [NC]
+  RewriteRule ^(.*)$ https://DOMINIO/$1 [R=301,L]
+
+  # A raiz do domínio deve sempre abrir o novo index.html.
+  RewriteRule ^$ index.html [L]
+
+  # Preserva arquivos e pastas reais.
+  RewriteCond %{REQUEST_FILENAME} -f [OR]
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^ - [L]
+
+  # Qualquer rota não encontrada volta para o site principal.
+  RewriteRule ^ index.html [L]
+</IfModule>
+
+<IfModule mod_headers.c>
+  <FilesMatch "\.(html|js|css)$">
+    Header set Cache-Control "no-cache, no-store, must-revalidate"
+    Header set Pragma "no-cache"
+    Header set Expires "0"
+  </FilesMatch>
+</IfModule>
+
+# Compressão e cache (velocidade)
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css application/javascript text/javascript application/json image/svg+xml application/manifest+json
+</IfModule>
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType image/webp "access plus 30 days"
+  ExpiresByType image/png "access plus 30 days"
+  ExpiresByType image/x-icon "access plus 30 days"
+  ExpiresByType video/mp4 "access plus 30 days"
+</IfModule>
