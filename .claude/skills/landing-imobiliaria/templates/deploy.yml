@@ -1,0 +1,60 @@
+name: Preparar deploy do site
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'public_html/**'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: deploy-site
+  cancel-in-progress: false
+
+jobs:
+  preparar-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Obter código
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Validar e preparar branch da Hostinger
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF" = refs/heads/main || { echo 'Execute este workflow na main.' >&2; exit 1; }
+          git cat-file -e "$GITHUB_SHA:public_html/index.html"
+          DEPLOY_TREE=$(git rev-parse "$GITHUB_SHA:public_html")
+          test "$(git cat-file -t "$DEPLOY_TREE")" = tree
+          test "$(git ls-tree -z "$DEPLOY_TREE" | git mktree -z)" = "$DEPLOY_TREE"
+          while IFS= read -r -d '' path; do
+            base="${path##*/}"
+            case "${base,,}" in
+              .env|.env.*|config.php|*.sql)
+                echo "Arquivo proibido em public_html: $path" >&2
+                exit 1
+                ;;
+            esac
+          done < <(git ls-tree -r -z --name-only "$DEPLOY_TREE")
+
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          PARENTS=()
+          if git ls-remote --exit-code --heads origin refs/heads/deploy/hostinger >/dev/null; then
+            git fetch origin refs/heads/deploy/hostinger:refs/remotes/origin/deploy/hostinger
+            PREVIOUS=$(git rev-parse origin/deploy/hostinger)
+            if test "$(git rev-parse "$PREVIOUS^{tree}")" = "$DEPLOY_TREE"; then
+              echo 'Conteúdo já publicado; nenhum commit necessário.'
+              exit 0
+            fi
+            PARENTS=(-p "$PREVIOUS")
+          fi
+
+          DEPLOY_COMMIT=$(git commit-tree "$DEPLOY_TREE" "${PARENTS[@]}" -m "Publicar site: $GITHUB_SHA")
+          git push origin "$DEPLOY_COMMIT:refs/heads/deploy/hostinger"
+          echo "Deploy preparado: $DEPLOY_COMMIT (tree $DEPLOY_TREE)"

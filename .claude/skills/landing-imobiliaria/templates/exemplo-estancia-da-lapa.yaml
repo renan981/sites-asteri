@@ -1,0 +1,159 @@
+# Exemplo real: briefing da Estância da Lapa (estado do site em 10/11/2026).
+# Serve de modelo de preenchimento. Não copie números para outro produto.
+
+materiais:
+  book: "ELM_0001_21A_BRANDING (PDF de branding da agência, 27 páginas)"
+  tabela_precos: "Tabela Matriz Astéri · aba Estância da Lapa (Google Sheets)"
+  planta: "planta humanizada 2481×1754 + KMZ do loteamento"
+  fotos: "Drive do cliente: portaria, acesso, infraestrutura, casas, aéreas"
+  videos: ["drone (vários takes)", "YouTube zcoCCsRStTg", "YouTube rkSv8FIXVZc"]
+  marca: "logo vertical em cápsula (laranja #E08A31 + terra #AE633F) e horizontal"
+  referencias: []
+
+empreendimento:
+  nome: "Estância da Lapa"
+  slug: "estancia-da-lapa"
+  tipo: condominio_fazendas
+  fase: pronto
+  empreendedor: "Elevo Urbanismo"
+  registro: "100% regularizado (detalhes no atendimento)"
+  conceito: "Liberdade para viver grandes histórias"
+  promessa_h1: "Venha viver no melhor condomínio de fazendas"
+  h1_script: "da história."
+  lead_topo: "Glebas a partir de 20.000 m² para viver, criar e construir patrimônio com liberdade, natureza e uma localização que mantém a cidade por perto."
+
+publico:
+  finalidades: [Moradia, Investimento, Lazer / segunda casa]
+  perfis:
+    - "Família de BH que quer sair da cidade mantendo acesso ao aeroporto e à capital"
+    - "Investidor em terra com escala e documentação"
+    - "Quem procura casa de fim de semana com privacidade"
+  objecoes: ["documentação", "estrada de terra no acesso", "infraestrutura pronta?", "formas de pagamento"]
+
+localizacao:
+  regiao: "Quinta do Sumidouro / Fidalgo"
+  cidade: "Pedro Leopoldo"
+  uf: "MG"
+  endereco: "Estrada de Fidalgo, acesso pela MG-424"
+  coordenadas: { lat: -19.5274124, lng: -43.9855882 }
+  acessos: ["MG-424"]
+  mostrar_tipo_pista: true
+  distancias:
+    - { destino: "Aeroporto de Confins", minutos: 15, km: 0, confirmado: true }
+    - { destino: "Belo Horizonte", minutos: 45, km: 0, confirmado: true }
+  pontos:
+    - { nome: "Parque Estadual do Sumidouro", categoria: natureza, lat: -19.5486, lng: -43.9511 }
+    - { nome: "Gruta da Lapinha", categoria: natureza, lat: -19.5620, lng: -43.9597 }
+    - { nome: "Gruta do Baú", categoria: natureza, lat: -19.5481, lng: -43.9889 }
+    - { nome: "Restaurante Cheiro da Terra", categoria: gastronomia, lat: -19.5296, lng: -43.9667 }
+    - { nome: "Valle Rural", categoria: gastronomia, lat: -19.5175, lng: -43.9335 }
+    - { nome: "Aeroporto de Confins", categoria: aeroporto, lat: -19.6244, lng: -43.9719, url: "https://www.bh-airport.com.br" }
+    - { nome: "Centro de Pedro Leopoldo", categoria: cidade, lat: -19.6178, lng: -44.0428 }
+    - { nome: "Lagoa Santa", categoria: natureza, lat: -19.6327, lng: -43.8936 }
+    - { nome: "Vespasiano", categoria: cidade, lat: -19.6919, lng: -43.9233 }
+    - { nome: "Cidade Administrativa", categoria: cidade, lat: -19.7849, lng: -43.9506 }
+    - { nome: "Belo Horizonte", categoria: cidade, lat: -19.9191, lng: -43.9386 }
+    - { nome: "Serra do Cipó", categoria: natureza, lat: -19.3593, lng: -43.6189 }
+    - { nome: "Inhotim", categoria: natureza, lat: -20.1245, lng: -44.2216, url: "https://www.inhotim.org.br" }
+
+produto:
+  unidade_nome: gleba
+  unidade_plural: glebas
+  area_min: 20000
+  area_max: 27468
+  total_unidades: 61
+  tipologias: []
+  diferenciais:
+    - { titulo: "Glebas amplas", texto: "Domínio, privacidade e escala para um projeto verdadeiramente autoral.", numero: "20.000 m²", icone: area }
+    - { titulo: "Condomínio fechado", texto: "Mais controle, organização e segurança para o uso familiar ou patrimonial.", icone: cadeado }
+    - { titulo: "Localização estratégica", texto: "Quinta do Sumidouro/Fidalgo, com acesso pela MG-424 e conexão com Confins, Pedro Leopoldo e BH.", icone: pino }
+    - { titulo: "Infraestrutura e regularidade", texto: "Portaria, acesso, serviços essenciais e documentação para uma compra com menos ruído.", icone: escudo }
+  infraestrutura:
+    - { titulo: "Portaria com controle de acesso", texto: "Chegada organizada, com controle de entrada e presença institucional.", status: pronto, icone: portaria }
+    - { titulo: "Rede de água", texto: "Abastecimento como base para o uso e a implantação dos projetos.", status: pronto, icone: agua }
+    - { titulo: "Energia elétrica", texto: "Infraestrutura necessária para ocupar e operar as glebas.", status: pronto, icone: raio }
+    - { titulo: "Conexão de internet", texto: "Conectividade para trabalhar, receber e ficar conectado.", status: pronto, icone: wifi }
+    - { titulo: "Vias internas de cascalho", texto: "Circulação interna coerente com um condomínio de fazendas.", status: pronto, icone: estrada }
+    - { titulo: "Paisagismo e convivência", texto: "Espaços comuns e paisagismo que valorizam a chegada e o dia a dia.", status: pronto, icone: folha }
+  lazer: ["playground", "praça junto à portaria"]
+  regras: []
+
+comercial:
+  preco_a_partir: 467000
+  unidade_referencia: "gleba D-55, 20.110 m²"
+  disponiveis: 9
+  reservadas: 2
+  percentual_vendido: 82
+  selo: "82% já vendido"
+  planos:
+    - { nome: "10% + 48 meses", tipo: curto, juros: false, entrada_pct: 10, entrada_valor: 46700, parcelas: 48, valor_parcela: 8756, nota: "O preço da tabela, sem acréscimo, dividido em 4 anos." }
+    - { nome: "20% + 60 meses", tipo: curto, juros: false, entrada_pct: 20, entrada_valor: 93400, parcelas: 60, valor_parcela: 6227, nota: "Entrada maior, parcela menor e o mesmo preço de tabela, em 5 anos." }
+    - { nome: "Entrada + 210 meses", tipo: longo, juros: true, entrada_pct: 8.6, entrada_valor: 40162, parcelas: 210, valor_parcela: 4171, nota: "Ou 210 parcelas de R$ 3.128 + 17 parcelas anuais de R$ 13.163." }
+  aviso_legal: "Valores de referência da gleba D-55 (20.110 m², R$ 467.000) na tabela vigente, sujeitos a alteração sem aviso e à disponibilidade. No plano tradicional, valores e correção conforme contrato. As demais glebas têm valores próprios."
+  inventario:
+    usar: true
+    fonte: planilha
+    planilha_id: "1rDQIk5hln3ZihZVSizRBvCEVjG-nBPYufAq4YSz8nm4"
+    aba_gid: "1564731727"
+    colunas: { Gleba: n, Quadra: quadra, Status: st, Área: area, Preço: preco }
+    planta_imagem: "assets/planta/planta-glebas(-sm|-hd).webp"
+    kmz: "divisas oficiais do loteamento"
+
+contato:
+  whatsapp: "5531997801248"
+  whatsapp_exibicao: "(31) 99780-1248"
+  email: "comercial@estanciadalapa.com"
+  visitas: { proximos_dias: 8, a_partir_de: amanha, excluir_dias: [], periodos: [manhã, tarde] }
+  mensagens:
+    padrao: "Olá, quero conhecer o Estância da Lapa."
+    tabela: "Olá, quero receber a tabela completa do Estância da Lapa."
+    duvida: "Olá, tenho uma dúvida sobre o Estância da Lapa."
+
+integracoes:
+  crm_site: "estanciadalapa"
+  crm_empreendimento: "Estância da Lapa"
+  pixel_meta: "478526204473983"
+  ga4: "G-TR1SM0HV4N"
+  google_ads: "AW-17966029731"
+  google_ads_send_to: "AW-17966029731/PEAcCPmx0rEdEKO37_ZC"
+  clarity: "z9exl28d97"
+
+marca:
+  logo: "assets/images/logo-lapa.webp (horizontal clara) + pacote Identidade-Visual-Estancia-da-Lapa"
+  cores: { brand_dark: "#062f27", brand_dark_2: "#0b4035", ivory: "#f5f0e7", accent: "#b76540", gold: "#cda565", gold_light: "#f1bc79" }
+  fontes: { principal: Montserrat, manuscrita: "Nothing You Could Do" }
+  tom:
+    usar: ["liberdade", "escala", "patrimônio", "natureza", "privacidade", "fazendinhas de 20 mil m²"]
+    evitar: ["imperdível", "última chance", "sem juros no título dos anúncios"]
+  manual: "01_Manual/Manual_de_Marca_Estancia_da_Lapa_2026.pdf"
+
+midia:
+  foto_topo: "assets/images/img-01-81a3e83f0702.webp"
+  video_hero: { origem: "takes aéreos do drone, com LUT lapa.cube e transição de folhas", versao: 5 }
+  trilha: { usar: true, arquivo: "assets/audio/trilha-natureza.m4a", licenca: "[preencher]" }
+  videos:
+    - { titulo: "Apresentação do Estância da Lapa", youtube_id: "zcoCCsRStTg" }
+    - { titulo: "Estância da Lapa em vídeo", youtube_id: "rkSv8FIXVZc" }
+  galeria_categorias: [Portaria, Acesso, Infraestrutura, Casas, Aéreas]
+
+site:
+  dominio: "estanciadalapa.com"
+  hospedagem: hostinger
+  repositorio: "renan981/estancia-da-lapa"
+  secoes: [header, hero, ticker, diferenciais, conceito, infraestrutura, arredores, galeria, inventario, condicoes, contato, duvidas, rodape]
+  simulador: false
+  qualificacao: []
+  privacidade: { responsavel: "Estância da Lapa", cnpj: "[preencher]", email: "comercial@estanciadalapa.com" }
+  metas: {}
+  excecoes: ["SEO-05 (JSON-LD) ainda não implementado no site de referência"]
+
+faq:
+  - { pergunta: "Onde fica o Estância da Lapa?", resposta: "Na região da Quinta do Sumidouro, em Fidalgo, distrito de Pedro Leopoldo, com acesso estratégico pela MG-424." }
+  - { pergunta: "Qual é o tamanho das glebas?", resposta: "As unidades possuem área a partir de 20.000 m², permitindo projetos com maior liberdade de implantação e uso." }
+  - { pergunta: "O condomínio é regularizado?", resposta: "Sim. A documentação específica e as condições de cada unidade são detalhadas durante o atendimento." }
+  - { pergunta: "Como conhecer as unidades disponíveis?", resposta: "Preencha o formulário para receber a apresentação, consultar disponibilidade e agendar uma visita acompanhada." }
+  - { pergunta: "Posso utilizar a gleba como segunda residência?", resposta: "Sim. As dimensões permitem projetos de moradia principal, segunda residência, lazer ou outras finalidades compatíveis com as regras do condomínio." }
+  - { pergunta: "Qual é o valor das glebas?", resposta: "As glebas disponíveis partem de R$ 467 mil (gleba D-55, com 20.110 m²). Cada unidade tem valor próprio." }
+  - { pergunta: "Quais são as formas de pagamento?", resposta: "Dois planos curtos sem juros (10% + 48 parcelas ou 20% + 60 parcelas) e o plano tradicional, com entrada e até 210 parcelas." }
+
+pendencias: []
