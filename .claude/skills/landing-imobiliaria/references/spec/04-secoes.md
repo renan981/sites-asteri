@@ -36,8 +36,9 @@ Seções extras usam o mesmo esqueleto (kicker + h2 com `.script` + texto de apo
 - **HDR-01 DEVE** fixo no topo, transparente sobre o hero e com fundo `--brand-dark` translúcido + desfoque depois de rolar (`.is-scrolled`).
 - **HDR-02 DEVE** conter: logo (link para `#inicio`), menu com até 6 âncoras (O projeto, Infraestrutura, Galeria, Localização, Preços, FAQ), botão "Agendar visita" (`#contato`).
 - **HDR-03 DEVE** abaixo de 860 px: menu vira gaveta (`.mobile-nav`) aberta por botão com `aria-expanded`; fecha ao tocar num link e com Esc.
-- **HDR-04 DEVE**, se houver trilha: botão de som pequeno (34 px, círculo com borda) ao lado do menu, `aria-pressed` e rótulo "Desativar som"/"Ativar som". Preferência salva em `localStorage` (`<slug>_som`).
+- **HDR-04 DEVE**, se houver trilha: botão de som pequeno (34 px, quadrado com borda fina; nada em círculo) ao lado do menu, `aria-pressed` e rótulo "Desativar som"/"Ativar som". Preferência salva em `localStorage` (`<slug>_som`).
 - **HDR-05 DEVERIA** marcar o link da seção visível (`.is-active`).
+- **HDR-06 DEVE** a gaveta do celular rola por dentro (`height:100dvh; overflow-y:auto`) e funciona com o celular deitado (320 px de altura). Fechada, ela some no lugar (opacidade/visibilidade), nunca escondida fora da tela pela lateral: `translateX(100%)` alarga a página no celular e empurra o botão de fechar para fora da tela.
 
 ## 2 · Topo / hero (`HERO`)
 Conteúdo: mídia de fundo, kicker (cidade · estado), H1, lead, 2 botões, painel de 3 fatos, indicador "Role para descobrir".
@@ -87,14 +88,18 @@ Conteúdo: mídia de fundo, kicker (cidade · estado), H1, lead, 2 botões, pain
 ## 9 · Inventário (`INV`) — ver `07-inventario-dinamico.md`
 - **INV-01** título com a contagem real ("Escolha a sua gleba. *Restam 9 disponíveis.*") e 3 números (Disponíveis, Reservadas, A partir de).
 - **INV-02** planta com as unidades disponíveis em destaque (sombra sobre o resto), números sobre cada unidade, zoom (+/−, arrastar), legenda Disponível/Reservada/Vendida.
-- **INV-03** ficha da unidade ao tocar: número, quadra, área, preço, planos calculados, botão de WhatsApp com a unidade no texto, botão "Ver no satélite".
+- **INV-03** ficha da unidade ao tocar: número, quadra, área, situação, botão **"Descobrir o preço"** (abre a janela de lead com a unidade no texto, Interesse `Simular minha parcela`) e "Ver no satélite". **Sem preço, entrada ou parcela da unidade** (o site é para o cliente final; ver PRE-07).
 - **INV-04** lista ordenável (número, menor preço, maior área), sincronizada com a planta.
 - **INV-05 PODE** vista de satélite e relevo 3D com o contorno da unidade e transparência da planta.
+- **INV-06 DEVE** (se houver mapa) contornos tirados do KML/KMZ oficial do loteamento, um polígono por unidade, casado com o número certo; sem linhas extras (ver `07-inventario-dinamico.md` §Contornos).
+- **INV-07 DEVE** relevo 3D leve: terreno (Terrain Tiles) até o nível 12, satélite até o 18; os blocos de relevo em volta da unidade escolhida são pré-carregados; só inclinar a câmera depois que a altitude chega válida.
+- **INV-08 DEVE** planta em alta resolução com no máximo ~3.800 px de largura (versão leve ~1.400 px para a vista inteira).
 
 ## 10 · Preços e condições (`PRE`)
 - **PRE-01 DEVE** H2 com o preço "a partir de" e 3 fatos (unidades disponíveis, faixa de área, "sem juros nos planos curtos" se for o caso).
 - **PRE-02 DEVERIA** barra de vendido animada com o percentual real e "Restam X unidades".
-- **PRE-03 DEVE** 3 cartões de plano (o do meio em destaque `.is-featured`): nome curto, entrada, parcelas, frase explicativa.
+- **PRE-03 DEVE** 3 cartões de plano (o do meio em destaque `.is-featured`): **só o tipo do plano** (ex.: "10% + 48x sem juros", "20% + 60x sem juros", "Entrada + até 210x") e uma frase. Sem valor de entrada ou parcela.
+- **PRE-07 DEVE** o site é para o cliente final: o único valor em reais é o "a partir de R$ X". Nada de preço de unidade, entrada ou parcela no HTML, no JS ou no `inventario.json` (que é público).
 - **PRE-04 DEVE** CTA "Receba a tabela completa..." com botão de WhatsApp (passa pela janela de lead, Interesse `Receber a tabela completa`) e "Agendar visita".
 - **PRE-05 DEVE** nota legal: unidade de referência, "valores sujeitos a alteração sem aviso e à disponibilidade", correção conforme contrato.
 - **PRE-06 DEVE** todos os números iguais ao briefing ou ao `inventario.json` (se o preço vem da planilha, os textos da seção são preenchidos por JS a partir dela, com o HTML como reserva).
@@ -105,6 +110,7 @@ Conteúdo: mídia de fundo, kicker (cidade · estado), H1, lead, 2 botões, pain
 - **CTT-03 DEVE** aba tabela em 2 etapas: (1) nome + WhatsApp → (2) finalidade, prazo, e-mail, todos opcionais, com "Pular".
 - **CTT-04 DEVE** aba visita em 2 etapas: (1) objetivo, prazo, entrada (escolha única, as três obrigatórias) → (2) dia (próximos dias úteis/fins de semana conforme briefing), período (manhã/tarde), nome e WhatsApp.
 - **CTT-05 DEVE** texto de privacidade com link para a política, abaixo do botão.
+- **CTT-06 DEVE** o cartão do formulário rola por dentro em telas baixas; o botão de envio fica sempre alcançável.
 
 ## 12 · Dúvidas frequentes (`FAQ`)
 - **FAQ-01 DEVE** 6–8 perguntas reais (onde fica, tamanho, documentação, como conhecer, uso permitido, preço, formas de pagamento), a primeira aberta, acordeão acessível (`button` + `aria-expanded`).
@@ -120,3 +126,9 @@ Conteúdo: mídia de fundo, kicker (cidade · estado), H1, lead, 2 botões, pain
 - **FLT-03 DEVE** janela de lead antes do WhatsApp (ver `LEAD-04`), com foto lateral e 3 benefícios no computador.
 - **FLT-04 DEVE** modal de vídeo: aceita `data-video-open="yt:ID"` (YouTube sem cookies, autoplay) ou ID do Google Drive; fecha com ×, clique fora e Esc; devolve o foco; pausa a trilha enquanto aberto.
 - **FLT-05 DEVE** todos os diálogos com `role="dialog"`, `aria-modal`, foco preso dentro e rolagem do fundo travada.
+- **FLT-06 DEVE** toda janela e formulário rola por dentro em qualquer altura de tela (inclusive celular deitado, 320 px de altura); o botão de envio fica sempre visível e clicável. Conferir com `scripts/testar_telas.js`.
+- **FLT-07 DEVE** envio final: espera a confirmação do CRM (`AsteriLead.send` → `true`, até 8 s) e só então abre `/obrigado/?f=<chave>`; sem confirmação, agradece na própria página e abre o WhatsApp (já implementado em `templates/js/contato.js`, configurado por `SITE.obrigado`).
+
+## 15 · Página /obrigado (`OBR`)
+- **OBR-01 DEVE** `obrigado/index.html`, com `noindex` e a linha do CRM: título "Parabéns pela sua inscrição", espaço para vídeo de boas-vindas (foto enquanto não houver vídeo), os próximos passos do atendimento (4), um bloco de compromisso e **o mesmo rodapé da landing**. Não é outra landing page. Modelo: `templates/obrigado.html`.
+- **OBR-02 DEVE** só é aberta quando o CRM confirma o lead (FLT-07). Vindo de um botão de WhatsApp (`?f=whatsapp`), conta 10 s e abre o WhatsApp (link guardado em `sessionStorage.asteri_wa`; só aceita `wa.me`).

@@ -10,6 +10,11 @@ Marque cada item antes de publicar. Itens com código remetem ao requisito.
 - [ ] `config.js` sem `[preencher]` nos campos obrigatórios (`nome`, `whatsapp`, `crmSite`).
 - [ ] A linha do CRM em todas as páginas, sem `defer`, antes de `contato.js`; nenhum webhook, `leads.js` ou Pixel/Google colado à mão (LEAD-01, LEAD-02).
 
+## Telas (obrigatório antes de publicar)
+- [ ] `node scripts/testar_telas.js http://localhost:<porta> qa` passa em todos os 19 tamanhos (celulares de 320 a 430 px em pé e deitados, tablets, notebooks de 1024×600 a 1366×768, janela baixa 1440×620 e monitor 1920×1080): todo botão de envio de todo formulário visível e clicável, menu do celular rolável e sem rolagem lateral (FLT-06, HDR-06, CTT-06).
+- [ ] Relatório do que deu erro e do que foi ajustado entregue ao usuário (`qa/relatorio-testes.md`).
+- [ ] Mockups (computador e celular) de cada parte aprovados pelo usuário antes de publicar.
+
 ## Conteúdo
 - [ ] O topo diz tipo de produto, tamanho mínimo e cidade (DS-07, HERO-06).
 - [ ] Todos os números conferidos com o briefing: preço, áreas, distâncias, planos, % vendido, unidades restantes (CON-02, PRE-06).

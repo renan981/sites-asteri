@@ -1,0 +1,171 @@
+<!doctype html>
+<!-- Modelo da página /obrigado (OBR-01/02). Troque: nome do empreendimento, textos dos passos, fotos, rodapé (igual ao da landing),
+     código do site na linha do CRM. Salve como public_html/obrigado/index.html. Exemplo real: Estância das Águas (nov/2026). -->
+<html lang="pt-BR" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Parabéns pela sua inscrição | Estância das Águas</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#021A33">
+<link rel="canonical" href="https://estanciadasaguas.com/obrigado/">
+<link rel="icon" href="/assets/icons/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Allura&family=Montserrat:wght@300;400;500;600&display=swap">
+<link rel="stylesheet" href="/assets/css/site.css">
+<style>
+/* ===== Página /obrigado · docs/spec/secoes/15-obrigado.md ===== */
+.obr-top{position:absolute;inset:0 0 auto;z-index:5}
+.obr-top .container{display:flex;justify-content:space-between;align-items:center;height:84px}
+.obr-top img{width:140px}
+.obr-top a.voltar{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;text-decoration:none;color:rgba(255,255,255,.86)}
+.obr-hero{position:relative;color:var(--paper);background:var(--brand-dark);padding:130px 0 80px;overflow:hidden}
+.obr-hero__bg{position:absolute;inset:0;background:url("/assets/img/aerea-lagoas.webp") center/cover;filter:brightness(.36)}
+.obr-hero__grid{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:clamp(32px,5vw,80px);align-items:center}
+.obr-hero h1{font-size:clamp(40px,5vw,76px);letter-spacing:-.05em;margin-top:22px}
+.obr-hero h1 .script{color:var(--gold)}
+.obr-hero p.lead-text{margin-top:22px}
+.obr-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
+.obr-count{margin-top:22px;border:1px solid var(--line-dark);padding:14px 18px;max-width:460px}
+.obr-count__bar{height:3px;background:rgba(255,255,255,.18);margin-top:10px;overflow:hidden}
+.obr-count__bar i{display:block;height:100%;background:var(--accent);width:0;animation:obr var(--espera,10s) linear forwards}
+@keyframes obr{to{width:100%}}
+.obr-num{margin-top:20px;font-size:14px;color:rgba(255,255,255,.75)}
+.obr-num a{color:var(--paper);font-weight:600}
+.obr-video{position:relative;aspect-ratio:16/10;border:1px solid var(--line-dark);background:url("/assets/galeria/portaria-frontal-sm.webp") center/cover}
+.obr-video::before{content:"";position:absolute;inset:0;background:rgba(2,26,51,.45)}
+.obr-video__msg{position:absolute;left:22px;right:22px;bottom:20px;display:grid;gap:6px}
+.obr-video__msg strong{font-family:Allura,cursive;font-weight:400;font-size:40px;color:var(--gold);line-height:1}
+.obr-video__play{position:absolute;inset:0;margin:auto;width:76px;height:76px;display:grid;place-items:center;border:1px solid rgba(255,255,255,.7);background:rgba(2,26,51,.5);color:#fff;cursor:pointer}
+.obr-video video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;background:#000}
+.obr-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
+.obr-step{background:var(--paper);padding:28px 24px;display:grid;gap:10px;align-content:start}
+.obr-step b{display:grid;place-items:center;width:48px;height:48px;border:1px solid var(--accent-deep);color:var(--accent-deep);font-weight:500}
+.obr-step small{font-size:11px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:rgba(11,35,64,.6)}
+.obr-step p{font-weight:300;font-size:15.5px;color:rgba(11,35,64,.8)}
+.obr-promise{display:grid;grid-template-columns:.8fr 1.2fr;gap:clamp(32px,5vw,80px);align-items:center}
+.obr-promise figure{margin:0;border:1px solid var(--line-dark);aspect-ratio:4/3;background:url("/assets/galeria/lagoas-margem-sm.webp") center/cover}
+@media (max-width:960px){.obr-hero__grid,.obr-promise{grid-template-columns:1fr}.obr-steps{grid-template-columns:1fr 1fr}}
+@media (max-width:560px){.obr-steps{grid-template-columns:1fr}.obr-actions .button{width:100%}.obr-hero{padding-top:110px}}
+</style>
+</head>
+<body data-asteri="manual">
+<header class="obr-top">
+  <div class="container">
+    <a href="/" aria-label="Estância das Águas · voltar ao site"><img src="/assets/brand/logo-branca.webp" alt="Estância das Águas" width="640" height="299"></a>
+    <a class="voltar" href="/">‹ Voltar ao site</a>
+  </div>
+</header>
+<main>
+  <section class="obr-hero is-dark">
+    <div class="obr-hero__bg" aria-hidden="true"></div>
+    <div class="container obr-hero__grid">
+      <div>
+        <div class="kicker" id="obrKicker"><i style="transform:none"></i><span>Inscrição confirmada</span></div>
+        <h1>Parabéns pela sua <span class="script" style="clip-path:none">inscrição.</span></h1>
+        <p class="lead-text">Recebemos os seus dados. Você está a poucos passos de conhecer um lugar que pode transformar a sua vida e a da sua família. Um especialista do Estância das Águas vai falar com você pelo WhatsApp.</p>
+        <div class="obr-count" id="obrCount" hidden>
+          <span id="obrCountTxt">Abrindo o WhatsApp em <b id="obrSeg">10</b> s</span>
+          <div class="obr-count__bar"><i></i></div>
+        </div>
+        <div class="obr-actions">
+          <a class="button button--wa" id="obrWa" href="https://wa.me/5531997801248?text=Ol%C3%A1%2C%20acabei%20de%20enviar%20meus%20dados%20no%20site%20do%20Est%C3%A2ncia%20das%20%C3%81guas."><span id="obrWaTxt">Falar no WhatsApp agora</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          <a class="button button--outline" href="/">Voltar ao site</a>
+        </div>
+        <p class="obr-num">Nosso número oficial: <a href="tel:+5531997801248">(31) 99780-1248</a>. Salve na sua agenda.</p>
+      </div>
+      <div class="obr-video" id="obrVideo">
+        <button class="obr-video__play" type="button" id="obrPlay" hidden aria-label="Assistir mensagem de boas-vindas"><svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path d="M8 5v14l11-7z" fill="currentColor"/></svg></button>
+        <div class="obr-video__msg"><strong>Seja bem-vindo.</strong><span>Uma mensagem da equipe do Estância das Águas.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="container">
+      <div class="sec-head">
+        <div class="kicker"><i style="transform:none"></i><span>O que acontece agora</span></div>
+        <h2>Os próximos passos do <span class="script" style="clip-path:none">seu atendimento.</span></h2>
+      </div>
+      <div class="obr-steps">
+        <div class="obr-step"><b>01</b><small>Hoje</small><h3>O especialista chama você</h3><p>Pelo WhatsApp, para entender o que você procura num sítio.</p></div>
+        <div class="obr-step" id="obrPasso2"><b>02</b><small>A conversa</small><h3>As glebas certas para você</h3><p>Ele apresenta as últimas glebas disponíveis, a tabela e as formas de pagamento.</p></div>
+        <div class="obr-step" id="obrPasso3"><b>03</b><small>A visita</small><h3>Você conhece de perto</h3><p>Marcamos um dia em horário comercial para você caminhar pelas glebas, pelas lagoas e pelo clube.</p></div>
+        <div class="obr-step"><b>04</b><small>A conquista</small><h3>Seu sítio no Estância</h3><p>Com tudo explicado e a documentação em mãos, você garante a sua gleba direto com o empreendedor.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec is-dark">
+    <div class="container obr-promise">
+      <figure aria-hidden="true"></figure>
+      <div>
+        <div class="kicker"><i style="transform:none"></i><span>Nosso compromisso</span></div>
+        <h2 style="margin-top:22px">Ao seu lado do primeiro contato <span class="script" style="clip-path:none">à chave na mão.</span></h2>
+        <p class="lead-text" style="margin-top:22px">Se uma gleba não for o ideal para você agora, o especialista continua ao seu lado até encontrar a melhor solução. Atendimento sem pressa, com transparência sobre valores, documentação e condições.</p>
+        <p class="con__sign" style="color:var(--gold);margin-top:18px">Equipe Estância das Águas</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer__grid">
+      <div class="footer__brand">
+        <img src="/assets/brand/logo-branca.webp" alt="Estância das Águas" width="640" height="299" loading="lazy">
+        <p>Condomínio de sítios a partir de 20.000 m² em Baldim/MG, com lagoas, clube e infraestrutura pronta. Acesso pela MG-323.</p>
+      </div>
+      <nav class="footer__nav" aria-label="Rodapé">
+        <a href="/#conceito">Projeto</a><a href="/#infraestrutura">Infraestrutura</a><a href="/#arredores">Localização</a><a href="/#glebas">Glebas</a><a href="/#condicoes">Preços</a><a href="/#duvidas">Dúvidas</a>
+      </nav>
+      <div class="footer__contact">
+        <a href="tel:+5531997801248">WhatsApp (31) 99780-1248</a>
+        <a href="mailto:comercial@asteribrasil.com.br">comercial@asteribrasil.com.br</a>
+        <span>MG-323, São Vicente · Baldim/MG</span>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>© <span data-ano>2026</span> Estância das Águas · <a href="/politica-de-privacidade.html">Política de privacidade</a></span>
+      <span>Imagens, valores e disponibilidade sujeitos a confirmação no atendimento.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="/assets/js/config.js"></script>
+<script>
+/* Página de agradecimento: só é aberta quando o CRM confirma o lead (OBR-01).
+   Vindo de um botão de WhatsApp (?f=whatsapp), conta 10 s e abre o WhatsApp (OBR-02). */
+var ESPERA_SEGUNDOS = 10;
+var VIDEO = '';   // endereço do vídeo de boas-vindas (ex.: /assets/video/boas-vindas-v1.mp4). Vazio = mostra só a foto.
+(function(){
+  document.documentElement.classList.remove('no-js');
+  var S = window.SITE || {}, $ = function(id){ return document.getElementById(id); };
+  var PADRAO = 'https://wa.me/' + S.whatsapp + '?text=' + encodeURIComponent('Olá, acabei de enviar meus dados no site do ' + (S.nome || 'Estância das Águas') + '.');
+  var f = new URLSearchParams(location.search).get('f'), wa = null;
+  try{ wa = sessionStorage.getItem('asteri_wa'); }catch(e){}
+  if(!wa || !/^https:\/\/(wa\.me|api\.whatsapp\.com)\//.test(wa)) wa = PADRAO;   // só aceita link do WhatsApp
+  var botao = $('obrWa'); botao.href = wa;
+  [].forEach.call(document.querySelectorAll('[data-ano]'), function(el){ el.textContent = new Date().getFullYear(); });
+  if(f === 'visita'){ $('obrKicker').querySelector('span').textContent = 'Pedido de visita confirmado'; $('obrPasso3').querySelector('p').textContent = 'O especialista confirma com você o dia e o período que você escolheu.'; }
+  if(VIDEO){
+    var play = $('obrPlay'); play.hidden = false;
+    play.addEventListener('click', function(){ var v = document.createElement('video'); v.src = VIDEO; v.controls = true; v.playsInline = true; $('obrVideo').appendChild(v); play.hidden = true; v.play().catch(function(){}); });
+  }
+  if(f === 'whatsapp'){
+    $('obrWaTxt').textContent = 'Abrir agora';
+    var box = $('obrCount'), seg = $('obrSeg'), resta = ESPERA_SEGUNDOS, foi = false;
+    box.style.setProperty('--espera', ESPERA_SEGUNDOS + 's'); box.hidden = false; seg.textContent = resta;
+    function abrir(){ if(foi) return; foi = true; clearInterval(t); $('obrCountTxt').textContent = 'Abrindo o WhatsApp…'; location.href = wa; }
+    var t = setInterval(function(){ resta--; if(resta <= 0) abrir(); else seg.textContent = resta; }, 1000);
+    botao.addEventListener('click', function(e){ e.preventDefault(); abrir(); });
+  }
+  /* tira o ?f= do endereço depois que a linha do CRM registrou a visita */
+  window.addEventListener('load', function(){ setTimeout(function(){ try{ history.replaceState(null, '', '/obrigado/'); }catch(e){} }, 3000); });
+})();
+</script>
+<script src="https://sandybrown-gazelle-848710.hostingersite.com/crm/api/site/script.js?s=estanciadasaguas"></script>
+</body>
+</html>

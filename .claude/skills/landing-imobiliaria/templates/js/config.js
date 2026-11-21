@@ -21,5 +21,7 @@ window.SITE = Object.freeze({
     duvida: 'Olá, tenho uma dúvida sobre o [preencher].'
   },
 
-  visitas: { proximosDias: 8, excluirDiasDaSemana: [] }   // 0 = domingo ... 6 = sábado
+  visitas: { proximosDias: 8, excluirDiasDaSemana: [] },   // 0 = domingo ... 6 = sábado
+
+  obrigado: { url: '/obrigado/', esperaConfirmacaoMs: 8000 }  // só abre quando o CRM confirma o lead (FLT-07); url vazia = sem página
 });

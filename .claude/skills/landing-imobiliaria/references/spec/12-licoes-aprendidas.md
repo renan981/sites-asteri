@@ -30,3 +30,17 @@ Problemas reais que aconteceram. Cada um virou regra na spec.
 - Nov/2026: o Meta contou mais leads (Pixel) do que chegaram ao CRM. O Pixel é entregue pelo navegador mesmo quando a página fecha; o `fetch` JSON (com pré-verificação CORS) pode se perder ao trocar para o WhatsApp. Por isso existe a reserva por `sendBeacon` e o evento `lead_envio_falhou`. Nos anúncios, use parâmetros de URL com nome: `utm_campaign={{campaign.name}}&utm_term={{adset.name}}&utm_content={{ad.name}}&campaign_id={{campaign.id}}&adset_id={{adset.id}}&ad_id={{ad.id}}`.
 - Nov/2026: cada site tinha o próprio código de envio (Make, nomes de função diferentes) e cada correção precisava ser feita site a site. Agora o padrão é único: a linha do CRM faz envio, origem, Pixel e Google; o site só chama `AsteriLead.start(chave, dados)`/`send(chave, dados)`.
 - Nov/2026: a linha foi publicada num site antes de o site estar conectado no CRM e o site ficou sem envio de leads até a reversão. Sempre: conectar no CRM → conferir o script → publicar (LEAD-09).
+
+## Estância das Águas (nov/2026)
+| O que aconteceu | Causa | Regra |
+|---|---|---|
+| Cliente não quer preço de unidade no site | O site é para o cliente final; o preço é conversa do consultor | PRE-07, INV-03: só "a partir de" e os tipos de plano; "Descobrir o preço" abre o formulário |
+| Agradecimento genérico depois do formulário | Sem página própria e sem saber se o CRM recebeu | OBR-01/02 e LEAD-10: /obrigado só com confirmação do CRM |
+| Botão de envio fora da tela em celular deitado e notebook baixo | Janelas sem rolagem própria | FLT-06, CTT-06 e `scripts/testar_telas.js` (19 tamanhos) |
+| Página com rolagem lateral no celular e botão de fechar o menu inalcançável | Gaveta escondida com `translateX(100%)` | HDR-06: fechada, some no lugar |
+| Sem confirmação do CRM o site saía para o WhatsApp | `window.open(..., 'noopener')` sempre devolve `null` | LEAD-10: abrir sem noopener e cortar o opener |
+| Contornos do KML sem número e com polígonos sobrepostos | KML de topografia não nomeia as unidades | 07 §Contornos: casar pela planta georreferenciada (grade UTM) e conferir pela área |
+| Relevo 3D com a câmera longe da unidade | MapLibre 4 não recalcula a câmera quando a altitude chega | 07 §Relevo: esperar altitude, `recalculateZoom`, depois inclinar |
+| Visual com círculos rejeitado | Gosto do cliente (já vinha dos criativos) | DS-08: caixas e retângulos de borda fina |
+| Águas v1 achado "fraco": mapas com etiquetas simples, planta poluída com 60 quadrados, identidade aplicada pela metade | Mapa feito do zero em vez de reaproveitar o módulo testado do Terra Nostra/Lapa | Partir do módulo `near-v27`/`route-v17`; números das glebas em círculo com hierarquia (disponível > reservada > vendida); aplicar manual inteiro (kicker com linhas dos dois lados, cantoneiras, grafismo da marca) |
+| Logo esticado no rodapé e na página de obrigado | `<img width height>` com só a largura no CSS | Base do CSS: `img{height:auto}` |
