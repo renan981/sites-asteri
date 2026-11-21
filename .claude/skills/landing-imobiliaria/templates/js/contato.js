@@ -1,6 +1,8 @@
 /* Formulários e WhatsApp: abas do contato, "Receber tabela" em 2 etapas, "Agendar visita" em 2 etapas
    e janela de lead antes de qualquer link do WhatsApp. Usa window.SITE (config.js) e window.AsteriLead (linha do CRM, carregada antes deste arquivo).
    Versão limpa e consolidada dos módulos da Estância da Lapa (conversao-v24 + janela do WhatsApp).
+   Estância das Águas: o envio final espera a confirmação do CRM (até SITE.obrigado.esperaConfirmacaoMs)
+   e só então abre /obrigado/; sem confirmação, agradece na própria página e abre o WhatsApp (FLT-07, OBR-01).
 
    CONTRATO DE MARCAÇÃO (use estes atributos no HTML):
    Abas ............ botões [data-ctab="info|visita"] (role="tab") · painéis [data-cpanel="info|visita"]
@@ -20,7 +22,27 @@
   function $(s, c){ return (c || document).querySelector(s); }
   function $$(s, c){ return [].slice.call((c || document).querySelectorAll(s)); }
   function lead(){ return window.AsteriLead || { start: function(){}, send: function(){ return Promise.resolve(false); } }; }
-  function openWa(lines){ window.open(WA + '?text=' + encodeURIComponent(lines.filter(function(l){ return l !== null; }).join('\n')), '_blank', 'noopener'); }
+  /* Envio final: espera o CRM confirmar; com confirmação vai para /obrigado/, sem confirmação segue como antes */
+  function finalizar(form, kind, dados, lines, naPagina){
+    var link = WA + '?text=' + encodeURIComponent(lines.filter(function(l){ return l !== null; }).join('\n'));
+    var cfg = S.obrigado || {}, ir = false, btn = $('[data-submit] span', form) || $('[data-submit]', form) || $('button[type="submit"]', form);
+    var txt = btn ? btn.textContent : ''; if(btn) btn.textContent = 'Enviando…'; form.setAttribute('aria-busy', 'true');
+    function fim(){ form.removeAttribute('aria-busy'); if(btn) btn.textContent = txt; }
+    function semConfirmacao(){ if(ir) return; ir = true; clearTimeout(t); fim(); openLink(link); naPagina(); }
+    var t = setTimeout(semConfirmacao, cfg.esperaConfirmacaoMs || 8000);
+    var p; try{ p = lead().send(kind, dados); }catch(e){}
+    if(!cfg.url || !p || typeof p.then !== 'function') return semConfirmacao();
+    p.then(function(ok){
+      if(ir) return;
+      if(!ok) return semConfirmacao();
+      ir = true; clearTimeout(t); fim();
+      try{ sessionStorage.setItem('asteri_wa', link); }catch(e){}
+      location.href = cfg.url + '?f=' + kind;
+    }, semConfirmacao);
+  }
+  /* abre o WhatsApp em outra aba; com 'noopener' o window.open sempre devolve null, então o opener é cortado depois.
+     Só se o navegador bloquear a aba nova é que o WhatsApp abre na mesma. */
+  function openLink(link){ var w = null; try{ w = window.open(link, '_blank'); }catch(e){} if(w){ try{ w.opener = null; }catch(e){} } else location.href = link; }
   function val(form, name){ var d = new FormData(form).get(name); return d == null ? '' : String(d).trim(); }
 
   /* ---------- telefone: máscara (DD) 9XXXX-XXXX ---------- */
@@ -86,16 +108,16 @@
       return;
     }
     if(!skip && form.elements.email && !check([form.elements.email])) return;
-    lead().send('contato', skip ? {} : { finalidade: val(form, 'finalidade'), 'Prazo para comprar': val(form, 'prazo'), email: val(form, 'email') });
-    openWa([
+    finalizar(form, 'contato', skip ? {} : { finalidade: val(form, 'finalidade'), 'Prazo para comprar': val(form, 'prazo'), email: val(form, 'email') }, [
       (S.mensagens && S.mensagens.tabela) || 'Olá, quero receber a tabela completa.', '',
       'Nome: ' + val(form, 'nome'), 'WhatsApp: ' + val(form, 'telefone'),
       !skip && val(form, 'finalidade') ? 'Finalidade: ' + val(form, 'finalidade') : null,
       !skip && val(form, 'prazo') ? 'Prazo para comprar: ' + val(form, 'prazo') : null,
       !skip && val(form, 'email') ? 'E-mail: ' + val(form, 'email') : null
-    ]);
-    form.classList.add('is-sent');
-    var l = $('[data-step-label]', form); if(l) l.textContent = 'Pronto! Continue a conversa no WhatsApp que abrimos para você.';
+    ], function(){
+      form.classList.add('is-sent');
+      var l = $('[data-step-label]', form); if(l) l.textContent = 'Parabéns pela sua inscrição! Continue a conversa no WhatsApp que abrimos para você.';
+    });
   }
 
   /* ---------- Agendar visita: perfil → dia, período e contato ---------- */
@@ -131,12 +153,14 @@
     if(!(val(form, 'finalidade') && val(form, 'prazo') && val(form, 'entrada'))){ if(form._vstep) form._vstep(1); if(err) err.hidden = false; return; }
     if(!check([form.elements.nome, form.elements.telefone])) return;
     var quando = val(form, 'dia') + ' — ' + val(form, 'periodo');
-    lead().send('visita', { nome: val(form, 'nome'), telefone: val(form, 'telefone'), 'Interesse': 'Agendar visita', 'Dia e horário da visita': quando,
-      finalidade: val(form, 'finalidade'), 'Prazo para comprar': val(form, 'prazo'), 'Valor para entrada': val(form, 'entrada') });
-    openWa(['Olá, quero agendar uma visita ao ' + (S.nome || 'empreendimento') + '.', '', 'Dia: ' + val(form, 'dia') + ' (' + val(form, 'periodo') + ')',
-      'Nome: ' + val(form, 'nome'), 'WhatsApp: ' + val(form, 'telefone'), 'Objetivo: ' + val(form, 'finalidade'), 'Prazo para comprar: ' + val(form, 'prazo'), 'Entrada: ' + val(form, 'entrada')]);
-    form.classList.add('is-sent');
-    var l = $('[data-step-label]', form); if(l) l.textContent = 'Pedido enviado! O consultor confirma o horário pelo WhatsApp.';
+    finalizar(form, 'visita', { nome: val(form, 'nome'), telefone: val(form, 'telefone'), 'Interesse': 'Agendar visita', 'Dia e horário da visita': quando,
+      finalidade: val(form, 'finalidade'), 'Prazo para comprar': val(form, 'prazo'), 'Valor para entrada': val(form, 'entrada') },
+      ['Olá, quero agendar uma visita ao ' + (S.nome || 'empreendimento') + '.', '', 'Dia: ' + val(form, 'dia') + ' (' + val(form, 'periodo') + ')',
+      'Nome: ' + val(form, 'nome'), 'WhatsApp: ' + val(form, 'telefone'), 'Objetivo: ' + val(form, 'finalidade'), 'Prazo para comprar: ' + val(form, 'prazo'), 'Entrada: ' + val(form, 'entrada')],
+      function(){
+        form.classList.add('is-sent');
+        var l = $('[data-step-label]', form); if(l) l.textContent = 'Pedido enviado! O consultor confirma o horário pelo WhatsApp.';
+      });
   }
 
   /* ---------- Janela de lead antes do WhatsApp ---------- */
@@ -190,12 +214,12 @@
       return;
     }
     if(!skip && form.elements.email && !check([form.elements.email])) return;
-    lead().send('whatsapp', skip ? info : Object.assign(info, { email: val(form, 'email'), finalidade: val(form, 'finalidade'),
-      'Prazo para comprar': val(form, 'prazo'), 'Valor para entrada': val(form, 'entrada'), 'Profissão': val(form, 'profissao') }));
+    var dados = skip ? info : Object.assign(info, { email: val(form, 'email'), finalidade: val(form, 'finalidade'),
+      'Prazo para comprar': val(form, 'prazo'), 'Valor para entrada': val(form, 'entrada'), 'Profissão': val(form, 'profissao') });
     var padrao = (S.mensagens && S.mensagens.padrao) || 'Olá!';
     var pedido = text && text !== padrao ? text.replace(/^Ol[áa][,!.]?\s*/i, '') : '';
     if(pedido) pedido = pedido.charAt(0).toUpperCase() + pedido.slice(1);
-    openWa([
+    finalizar(form, 'whatsapp', dados, [
       padrao, pedido ? 'Pedido: ' + pedido : null,
       '', 'Nome: ' + val(form, 'nome'), 'WhatsApp: ' + val(form, 'telefone'),
       !skip && val(form, 'email') ? 'E-mail: ' + val(form, 'email') : null,
@@ -203,7 +227,6 @@
       !skip && val(form, 'prazo') ? 'Prazo para comprar: ' + val(form, 'prazo') : null,
       !skip && val(form, 'entrada') ? 'Valor para entrada: ' + val(form, 'entrada') : null,
       !skip && val(form, 'profissao') ? 'Profissão: ' + val(form, 'profissao') : null
-    ]);
-    closeGate();
+    ], closeGate);
   }
 })();

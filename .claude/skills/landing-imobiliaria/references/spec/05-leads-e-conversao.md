@@ -31,6 +31,13 @@ Visitante ─► formulário do site (etapa 1: nome + WhatsApp)
 - **LEAD-08 DEVE** a mensagem do WhatsApp é pré-preenchida conforme o botão (ver `config.js` → `mensagens`), incluindo a unidade quando vier do inventário.
 - **LEAD-09 DEVE** o site é conectado no CRM **antes** de ser publicado com a linha. Ordem: cadastrar o site em Sites conectados → abrir `https://sandybrown-gazelle-848710.hostingersite.com/crm/api/site/script.js?s=<código>` e ver a linha do site → só então publicar o site. Publicar a linha antes do cadastro deixa o site **sem envio de leads**.
 
+## Depois do envio (LEAD-10 DEVE)
+O envio final espera a confirmação do CRM (até 8 s). **Confirmou:** vai para `/obrigado/?f=<chave>` (contato, visita, whatsapp); o link do WhatsApp fica em `sessionStorage` e a página de obrigado abre o WhatsApp em 10 s quando o lead veio de um botão de WhatsApp. **Não confirmou:** agradece na própria página e abre o WhatsApp numa aba nova.
+Cuidado: `window.open(url, '_blank', 'noopener')` **sempre devolve `null`**; quem testa o retorno para saber se a aba abriu acaba navegando a própria página para o WhatsApp. Abra sem `noopener` e corte o `opener` depois (`w.opener = null`).
+
+## Leads de teste (LEAD-11 DEVE)
+No máximo 2 leads reais de teste, sempre com o nome começando por "Teste Site", e avisar o usuário para apagar no CRM. Nenhuma chave ou senha do CRM no site.
+
 ## Corpo do lead (nomes exatos do CRM Astéri)
 Campos de pessoa e qualificação:
 
@@ -73,6 +80,6 @@ AsteriLead.send('visita',  { nome, telefone, finalidade, 'Prazo para comprar': p
 ```
 
 ## Teste (DEVE seguir)
-1. Sem gerar lead: `scripts/testar_leads.js` intercepta o envio ao CRM (`**/api/site/lead**`) e confere os 3 fluxos e o corpo.
+1. Sem gerar lead: `scripts/testar_leads.js` intercepta o envio ao CRM (`**/api/site/lead**`) e confere os 3 fluxos, o corpo e os dois destinos (CRM confirma → `/obrigado/`; CRM não confirma → agradece e abre o WhatsApp).
 2. Real: depois de publicar, **um** lead com nome começando por **"Teste Site"**, em aba anônima, com o link de teste (UTMs e IDs reais). Conferir no CRM: lead novo, origem, campanha e anúncio. Avisar o usuário para apagar.
 3. No CRM, Sites conectados › **Conferir agora** deve ficar verde (linha instalada, formulários, Pixel).

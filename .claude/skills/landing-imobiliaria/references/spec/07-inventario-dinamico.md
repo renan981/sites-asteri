@@ -31,8 +31,22 @@ Planilha Google (time comercial atualiza)
 - **INV-D04 DEVE** os números da seção (disponíveis, reservadas, "a partir de", "Restam X", percentual vendido) são calculados do JSON; o HTML traz os valores do dia como reserva.
 - **INV-D05 DEVE** posição de cada unidade na planta em pixels da imagem (centro do número), num objeto no `inventario.js`. Para satélite/relevo, a transformação planta → coordenadas é ajustada a partir do KMZ do loteamento (afim: `lng = A0 + A1·x + A2·y`, `lat = B0 + B1·x + B2·y`), com erro médio informado no comentário.
 - **INV-D06 DEVE** planta em WebP em 2 tamanhos (leve para a vista inteira, grande para zoom), trocando para a maior só quando o zoom pede.
-- **INV-D07 DEVE** ficha da unidade com planos calculados a partir do JSON e botão de WhatsApp com texto "Quero saber mais sobre a gleba 09 (26.361 m², R$ 624.360)" → Interesse `Simular minha parcela`, `Faixa de investimento` = preço.
+- **INV-D07 DEVE** ficha da unidade com área e situação e o botão "Descobrir o preço" com texto "Quero descobrir o preço da gleba 09 (26.361 m²)" → Interesse `Simular minha parcela`. O JSON público **não leva preço nem planos** (PRE-07).
 - **INV-D08 PODE** vista de satélite (Esri) e relevo 3D (Terrain Tiles da AWS, formato terrarium) com MapLibre; só inclina depois de confirmar que a altitude chegou válida.
+
+## Contornos das unidades (KML/KMZ oficial)
+- Os polígonos do KML de loteamento geralmente **não têm o número da unidade** (vêm como "MALHA_COORDENADA", sem nome), trazem o perímetro e às vezes polígonos repetidos ou sobrepostos. Nunca desenhe a partir da planta ilustrada: ela é artística e não está em escala.
+- Método que funcionou (Estância das Águas): pegar a **planta técnica georreferenciada** (PDF do topógrafo, com grade UTM nas bordas e o número + área de cada unidade), ler duas linhas da grade (E e N), converter os vértices do KML para UTM (SIRGAS 2000, fuso da região) e sobrepor. Cada polígono recebe o número cujo rótulo cai dentro dele; confira pela área (KML × planta, diferença < 1%).
+- Tire do resultado: o perímetro, linhas soltas, duplicatas e polígonos sobrepostos (uma unidade grande com duas pequenas dentro, por exemplo). Unidade sem polígono próprio pode ser reconstruída pelo vão entre as vizinhas dentro do perímetro; registre isso no JSON (`fonte`).
+- Saída: `data/<unidades>-contorno.json` (GeoJSON, propriedade `n`), um polígono por unidade.
+- Para o número na planta ilustrada, use a posição do círculo/rótulo de cada unidade na própria imagem (detecção dos círculos + conferência visual), não uma transformação a partir do KML.
+
+## Relevo 3D (lições)
+- Terreno `raster-dem` terrarium com `maxzoom: 12`; satélite até 18; exagero ~1,3.
+- MapLibre 4: depois que a altitude chega, a câmera continua calculada no nível do mar e o centro fica deslocado. Espere `queryTerrainElevation(centro)` válida, chame `map.transform.recalculateZoom(map.terrain)` e só então incline (`pitch` ~55).
+- O botão do número no mapa vai dentro de um invólucro (`div`): o MapLibre posiciona o marcador com `transform`, e um `transform` no próprio botão o tira do lugar.
+- O CSS do MapLibre põe `.maplibregl-map{position:relative}`: em caixa com `position:absolute; inset:0`, reafirme o absoluto ou o mapa encolhe para 300 px.
+- Navegador sem placa de vídeo (testes): `--use-angle=swiftshader --enable-unsafe-swiftshader`.
 
 ## Sem planilha
 Se o comercial não tiver planilha, o inventário fica em `data/inventario.json` editado à mão, e a skill explica ao usuário como atualizar (ou propõe criar a planilha).

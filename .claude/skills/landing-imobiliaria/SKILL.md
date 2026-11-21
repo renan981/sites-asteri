@@ -64,8 +64,10 @@ Siga `references/questionario.md`. Resumo:
 1. Rode `node scripts/checar_site.js <pasta-public_html>`. O script tira prints no computador e no celular, lista erros do console, imagens quebradas, âncoras sem destino e links de WhatsApp sem número.
    No ambiente com Playwright global: `NODE_PATH=$(npm root -g) node ...`.
 2. Olhe os prints. Confira a lista de aceite de `references/spec/11-aceite-qa.md`, item por item.
-3. **Teste de lead sem gerar lead:** com o site servido localmente, rode `node scripts/testar_leads.js "http://localhost:<porta>/index.html?utm_source=teste"`. O script intercepta o envio ao CRM e confere os 3 fluxos (tabela, janela do WhatsApp, visita), os campos do CRM e a ausência do campo `canal`.
-4. **Teste real:** depois de publicar, um lead "Teste Site" em aba anônima com o link de teste; conferir no CRM e avisar o usuário para apagar.
+3. **Teste de telas (obrigatório):** `node scripts/testar_telas.js http://localhost:<porta> qa` em 19 tamanhos; todo botão de envio precisa estar visível e clicável. Entregue ao usuário um relatório do que deu erro e do que foi ajustado.
+4. **Mockups:** prints de computador e de celular de cada parte importante. Publique só depois que o usuário aprovar e os testes passarem.
+5. **Teste de lead sem gerar lead:** com o site servido localmente, rode `node scripts/testar_leads.js "http://localhost:<porta>/index.html?utm_source=teste"`. O script intercepta o envio ao CRM e confere os 3 fluxos (tabela, janela do WhatsApp, visita), os campos do CRM e a ausência do campo `canal`.
+6. **Teste real:** depois de publicar, no máximo 2 leads "Teste Site" em aba anônima com o link de teste; conferir no CRM e avisar o usuário para apagar.
 
 ### Fase 6 — Publicação
 Siga `references/spec/10-deploy.md`: repositório, `deploy.yml`, Hostinger, domínio, `.htaccess`, verificações do Google e da Meta.
@@ -90,6 +92,8 @@ Vale para qualquer pedido de mudança num site feito com esta skill (repositóri
 - Fotos: só imagens reais do empreendimento (ou da região, identificadas como tal). Nada de céu "pintado", degradê de cor sobre a foto ou sombra atrás do texto.
 - Não mude o visual além do que foi pedido quando estiver ajustando um site já aprovado.
 - Preço e condição sempre com aviso "valores de referência, sujeitos a alteração e disponibilidade".
+- Site é para o cliente final: só "a partir de R$ X" e os tipos de plano; nada de preço de unidade, entrada ou parcela (PRE-07).
+- Nada de elementos em círculo; só a identidade da marca do produto novo (DS-08).
 
 ## Arquivos desta skill
 | Caminho | Para quê |
@@ -101,6 +105,8 @@ Vale para qualquer pedido de mudança num site feito com esta skill (repositóri
 | `templates/exemplo-estancia-da-lapa.yaml` | Briefing completo da Estância (exemplo real) |
 | `templates/js/config.js` | Configuração única do site (preenchida a partir do briefing) |
 | `templates/js/contato.js` | Abas, formulários em 2 etapas, agendamento de visita e janela de lead do WhatsApp |
+| `templates/obrigado.html` | Página /obrigado (parabéns, vídeo, próximos passos, compromisso, rodapé da landing) |
+| `scripts/testar_telas.js` | Teste obrigatório de 19 tamanhos de tela: botões de envio visíveis e clicáveis |
 | `templates/teste-leads.html` | Página mínima que segue o contrato de marcação (base para o HTML e para testar) |
 | `templates/deploy.yml`, `templates/htaccess.txt` | Publicação na Hostinger |
 | `scripts/otimizar_imagens.py` | Gera WebP grande e pequeno (`-sm`) de cada foto |
