@@ -50,7 +50,7 @@ Contraste mínimo 4,5:1 para texto (AA). Confira ao trocar as cores da marca.
 | Selos | `.x__badges` | ícone em caixa retangular de borda fina + texto curto |
 | Ícones | SVG inline de traço 1.5, `stroke: currentColor` | mesmo estilo em todo o site (casa, cadeado, água, raio, wi-fi, estrada, folha, avião, pino de mapa) |
 
-**DS-08 DEVE** (feedback do cliente) nada de elementos dentro de círculos (medalhão, número em bolinha, foto redonda, botão redondo): use caixas e retângulos com borda fina. Use só a identidade da marca do produto novo; nunca cores, fontes ou grafismos de outro empreendimento.
+**DS-08 DEVE** (feedback do cliente) nada de elementos dentro de círculos no layout (medalhão, foto redonda, botão redondo): use caixas e retângulos com borda fina. **Exceção aprovada (21/11/2026):** pinos e ícones dos mapas (categoria, número da gleba no mapa, empreendimento) e ícones de lista/infra podem ficar em círculo, como na Lapa e no Terra Nostra. Use só a identidade da marca do produto novo; nunca cores, fontes ou grafismos de outro empreendimento.
 
 ## Ritmo das seções (DS-04, DEVERIA)
 Alterne fundos para dar respiro: escuro (topo) → escuro (diferenciais) → claro (conceito) → escuro (infraestrutura) → claro/satélite (localização) → claro (galeria) → claro (inventário) → escuro (preços) → foto escurecida (contato) → claro (FAQ) → escuro (rodapé).

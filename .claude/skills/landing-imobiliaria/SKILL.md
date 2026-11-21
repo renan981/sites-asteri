@@ -93,7 +93,9 @@ Vale para qualquer pedido de mudança num site feito com esta skill (repositóri
 - Não mude o visual além do que foi pedido quando estiver ajustando um site já aprovado.
 - Preço e condição sempre com aviso "valores de referência, sujeitos a alteração e disponibilidade".
 - Site é para o cliente final: só "a partir de R$ X" e os tipos de plano; nada de preço de unidade, entrada ou parcela (PRE-07).
-- Nada de elementos em círculo; só a identidade da marca do produto novo (DS-08).
+- Nada de elementos em círculo no layout, exceto pinos e ícones dos mapas e ícones (DS-08); só a identidade da marca do produto novo.
+- Mapa da região: use o módulo do Terra Nostra (`mapa.js`/`mapa.css`, contrato `near-v27`/`route-v17`): pinos em círculo por categoria, filtros com ícone, "Na região", rota com tipo de pista. Troque só HOME/DEST, pontos e cores (LOC).
+- Mapa das glebas: números em círculo (vendidas pequenas, disponíveis grandes com destaque), painel em 3 passos, cartões das disponíveis e botão de GPS "Está no empreendimento?" (INV).
 
 ## Arquivos desta skill
 | Caminho | Para quê |

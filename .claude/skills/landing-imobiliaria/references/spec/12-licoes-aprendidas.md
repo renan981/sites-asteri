@@ -42,4 +42,5 @@ Problemas reais que aconteceram. Cada um virou regra na spec.
 | Contornos do KML sem número e com polígonos sobrepostos | KML de topografia não nomeia as unidades | 07 §Contornos: casar pela planta georreferenciada (grade UTM) e conferir pela área |
 | Relevo 3D com a câmera longe da unidade | MapLibre 4 não recalcula a câmera quando a altitude chega | 07 §Relevo: esperar altitude, `recalculateZoom`, depois inclinar |
 | Visual com círculos rejeitado | Gosto do cliente (já vinha dos criativos) | DS-08: caixas e retângulos de borda fina |
+| Águas v1 achado "fraco": mapas com etiquetas simples, planta poluída com 60 quadrados, identidade aplicada pela metade | Mapa feito do zero em vez de reaproveitar o módulo testado do Terra Nostra/Lapa | Partir do módulo `near-v27`/`route-v17`; números das glebas em círculo com hierarquia (disponível > reservada > vendida); aplicar manual inteiro (kicker com linhas dos dois lados, cantoneiras, grafismo da marca) |
 | Logo esticado no rodapé e na página de obrigado | `<img width height>` com só a largura no CSS | Base do CSS: `img{height:auto}` |
